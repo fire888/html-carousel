@@ -2,12 +2,13 @@
     width: 100%;
     height: 100%;
     border: 3px solid black;
+    display: flex;
 }
 
 .news-item {
     width: 200px;
     height: 300px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin: 5px;
     border: 3px solid black;
     display: flex;
@@ -15,8 +16,8 @@
 }
 
 .news-item img {
-    flex: 0 1 auto; 
-    /*margin-bottom: -30px;*/
+    flex: 0 1 auto;
+    width: 100%;
 }
 
 .news-item-date {
@@ -27,5 +28,9 @@
 .news-item-text {
     background: rgba(97, 142, 211, 0.616);
     flex: 1 1 auto;
+}
+
+.hidden-letter {
+    opacity: 0.1;
 }
 

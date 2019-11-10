@@ -2,13 +2,9 @@ import DATA from './data'
 import initUiChangerAnimations from './ui'
 import NewsWiget from './NewsWiget/NewsWiget'
 
-const newsWiget = new NewsWiget()
-newsWiget.createBlocksFromData( DATA ) 
-const wrapperNews = document.querySelector('#canvas-wrapper2')
-wrapperNews.appendChild( newsWiget.domElement )
+const newsWiget = new NewsWiget( DATA, document.querySelector('#canvas-wrapper2') )
 
-
-window.addEventListener( 'resize', () => newsWiget.resize(), false )
+//window.addEventListener( 'resize', () => newsWiget.resize(), false )
 initUiChangerAnimations({
     'One': () => newsWiget.playScenario( 'One' ),
     'Two': () => newsWiget.playScenario( 'Two' ),

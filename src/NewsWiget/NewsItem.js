@@ -1,9 +1,11 @@
+import DynamicText from '../DynamicText/DynamicText'
+
 export default class NewsItem {
     
-    
-    constructor ( data ) {
+    constructor ( data, container ) {
     
         this._DATA = data
+        this.container = container
 
         this.block = document.createElement('div')
         this.block.className = 'news-item'
@@ -23,10 +25,13 @@ export default class NewsItem {
         this._textString = this._DATA[ 'text' ]
         this._text = document.createElement('div')
         this._text.className = 'news-item-text' 
-        this._text.innerHTML = this._textString
+        //this._text.innerHTML = this._textString
         this.block.appendChild( this._text )
 
-        this._textParts = []
+        this.container.appendChild( this.block )
+
+        //this._textParts = []
+        this.dynamicText = new DynamicText(this._textString, this._text)
     }
 
     _getPictSrcFromData( data ) {
@@ -50,5 +55,19 @@ export default class NewsItem {
             arrImgs.push( img )
         }
         return arrImgs
+    }
+
+    resize() {
+        return new Promise ( resolve => { 
+            this.dynamicText.calkulateTextParts() 
+                .then( () => { 
+                    console.log( 'resize: after-calculate')
+                    resolve() 
+                } )
+        })
+    }
+
+    showLetters() {
+        this.dynamicText.showLetters()
     }
 } 
