@@ -10,10 +10,14 @@ export default class NewsItem {
         this.block = document.createElement('div')
         this.block.className = 'news-item'
 
-        this._imgs = this._getPictSrcFromData( this._DATA )
-        if (this._imgs[ 0 ]) {
-            this.block.appendChild( this._imgs[ 0 ] )
-        }
+        /*this._imgsContainer = null
+        this._imgs = this._getPictSrcFromData(this._DATA)
+        if (this._imgs.length > 0) {
+            this._imgsContainer = document.createElement('div')
+            this._imgsContainer.className = 'imgs-container'
+            this.block.appendChild(this._imgsContainer)
+            this._imgsContainer.appendChild(this._imgs[ 0 ])
+        }*/
 
         let dateData = new Date( this._DATA[ 'date' ] * 1000 )
         this._dateString = `${dateData.getDay()}.${dateData.getMonth()-1}.${dateData.getFullYear()}`
@@ -25,13 +29,12 @@ export default class NewsItem {
         this._textString = this._DATA[ 'text' ]
         this._text = document.createElement('div')
         this._text.className = 'news-item-text' 
-        //this._text.innerHTML = this._textString
         this.block.appendChild( this._text )
 
         this.container.appendChild( this.block )
 
-        //this._textParts = []
         this.dynamicText = new DynamicText(this._textString, this._text)
+        console.log('item: create')
     }
 
     _getPictSrcFromData( data ) {
@@ -57,15 +60,24 @@ export default class NewsItem {
         return arrImgs
     }
 
-    resize() {
+
+    resize () { 
         return new Promise ( resolve => { 
-            this.dynamicText.calkulateTextParts() 
+           console.log('item: resize')
+           this.dynamicText.calkulateTextParts() 
                 .then( () => { 
-                    console.log( 'resize: after-calculate')
+                    console.log( 'item: after-calculate')
                     resolve() 
                 } )
         })
     }
+
+
+    stopResize () {
+        console.log('item: stopResize')
+        this.dynamicText.stopCalculate()
+    }
+
 
     showLetters() {
         this.dynamicText.showLetters()

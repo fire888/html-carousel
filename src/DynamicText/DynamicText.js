@@ -8,21 +8,25 @@ export default class DynamicText {
         this.textBlockContainer.appendChild(this.textBlock)
 
         this.textParts
+        this.isCalculateStop = false
     }
 
 
     calkulateTextParts () {
-        return new Promise( resolve => {
+        return new Promise( resolve, reject => {
 
             this.textParts = []
 
             let indexPart = 0
             this.textParts.push([])
             
-            //console.log( this.textBlockContainer.offsetHeight )
-
             for (let i = 0; i < this.textData.length; i++) {
-                
+                if (this.isCalculateStop) {
+                    this.isCalculateStop = false
+                    console.log('text: calculate-reject')
+                    reject()
+                }
+
                 this.textBlock.innerHTML += this.textData[ i ]
 
                 if ( +this.textBlock.offsetHeight < this.textBlockContainer.offsetHeight - 20 ) {
@@ -41,9 +45,14 @@ export default class DynamicText {
                 }		
             }
             this.textBlock.innerHTML = ''
-            console.log('calculate')
+            console.log('text: calculate-on')
             resolve()
         })
+    }
+
+
+    stopCalculate () {
+        this.isCalculateStop = true
     }
 
 

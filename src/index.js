@@ -4,7 +4,7 @@ import NewsWiget from './NewsWiget/NewsWiget'
 
 const newsWiget = new NewsWiget( DATA, document.querySelector('#canvas-wrapper2') )
 
-//window.addEventListener( 'resize', () => newsWiget.resize(), false )
+window.addEventListener( 'resize', () => newsWiget.resize(), false )
 initUiChangerAnimations({
     'One': () => newsWiget.playScenario( 'One' ),
     'Two': () => newsWiget.playScenario( 'Two' ),
