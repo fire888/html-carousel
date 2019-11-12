@@ -9,7 +9,11 @@ export default class WaitIcon {
 
     appendTo(container) {
         this._container = container
-        this._container.appendChild(this._mess)
+        return new Promise(resolve => {
+            console.log('!!!!')
+            this._container.appendChild(this._mess)
+            resolve()
+        })
     }
 
     remove() {

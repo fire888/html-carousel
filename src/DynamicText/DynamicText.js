@@ -9,11 +9,12 @@ export default class DynamicText {
 
         this.textParts
         this.isCalculateStop = false
+        this.letterTimeout = null;
     }
 
 
     calkulateTextParts () {
-        return new Promise( resolve, reject => {
+        return new Promise( (resolve, reject) => {
 
             this.textParts = []
 
@@ -24,7 +25,7 @@ export default class DynamicText {
                 if (this.isCalculateStop) {
                     this.isCalculateStop = false
                     console.log('text: calculate-reject')
-                    reject()
+                    reject( true )
                 }
 
                 this.textBlock.innerHTML += this.textData[ i ]
@@ -49,12 +50,6 @@ export default class DynamicText {
             resolve()
         })
     }
-
-
-    stopCalculate () {
-        this.isCalculateStop = true
-    }
-
 
     showLetters () {
         return new Promise ( resolve => {
@@ -85,6 +80,13 @@ export default class DynamicText {
     
             showPart( 0 )
         } )
+    }
+
+    stopAnimation() {
+        if (this.letterTimeout) {
+            console.log('wiget: _stopAnimation')
+            clearTimeout(this.letterTimeout)
+        }
     }
     
     

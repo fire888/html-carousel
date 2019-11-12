@@ -62,20 +62,26 @@ export default class NewsItem {
 
 
     resize () { 
-        return new Promise ( resolve => { 
+        return new Promise ( (resolve, reject) => { 
            console.log('item: resize')
            this.dynamicText.calkulateTextParts() 
-                .then( () => { 
-                    console.log( 'item: after-calculate')
-                    resolve() 
+                .then( (err) => {
+                    console.log( 'item: after-calculate')            
+                    if (err) { 
+                        console.log('--err')
+                        reject()
+                    } else { 
+                        console.log( '--done')
+                        resolve()
+                    } 
                 } )
         })
     }
 
 
-    stopResize () {
-        console.log('item: stopResize')
-        this.dynamicText.stopCalculate()
+    stopAnimation () {
+        console.log( 'item: stopAnimation' )
+        if (this.dynamicText) this.dynamicText.stopAnimation()
     }
 
 
